@@ -1,31 +1,53 @@
 package main
 
 import (
-	"bytes"
+	"fmt"
 	"os"
-
-	"image"
-	"image/draw"
-	"image/png"
+	"os/exec"
+	"strings"
 )
 
+func loadDotenv(path string) error {
+	buf, err := os.ReadFile(path)
+	if err != nil {
+		return err
+	}
+
+	lines := strings.SplitSeq(strings.Trim(string(buf), "\n "), "\n")
+
+	for line := range lines {
+		keyIdx := strings.Index(line, "=")
+
+		if err := os.Setenv(line[0:keyIdx], line[keyIdx+1:]); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func handleError(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
+func turnGifToVideo(assetPath, outPath string) error {
+	return exec.Command("ffmpeg", "-i", assetPath, outPath).Run()
+}
+
 func main() {
-	btmBytes, _ := os.ReadFile("assets/bottom.png")
-	topBytes, _ := os.ReadFile("assets/top.png")
+	handleError(loadDotenv(".env"))
 
-	btm, _, _ := image.Decode(bytes.NewReader(btmBytes))
-	top, _, _ := image.Decode(bytes.NewReader(topBytes))
+	client, err := NewWeatherClient()
+	if err != nil {
+		handleError(err)
+	}
 
-	_ = btm
-	_ = top
+	weather, err := client.GetWeather()
+	if err != nil {
+		handleError(err)
+	}
 
-	base := image.NewRGBA(btm.Bounds())
-	draw.Draw(base, btm.Bounds(), btm, image.Point{0, 0}, draw.Over)
-	draw.Draw(base, top.Bounds(), top, image.Point{0, 0}, draw.Over)
-
-	f, _ := os.Create("output.png")
-
-	png.Encode(f, base)
-
-	f.Close()
+	fmt.Printf("%+v\n", weather)
 }
