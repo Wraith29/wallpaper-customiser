@@ -17,7 +17,7 @@ const (
 )
 
 func main() {
-	buf, err := os.ReadFile("../../assets/backdrop.png")
+	buf, err := os.ReadFile("../assets/backdrop.png")
 	if err != nil {
 		panic(err)
 	}
@@ -36,7 +36,7 @@ func main() {
 		snapshot := image.NewPaletted(bounds, palette.Plan9)
 		draw.Draw(snapshot, bounds, bd, image.Pt(idx, 0), draw.Src)
 
-		f, err := os.Create(fmt.Sprintf("../../assets/anim/f_%d.png", idx))
+		f, err := os.Create(fmt.Sprintf("../assets/anim/f_%d.png", idx))
 		if err != nil {
 			panic(err)
 		}
@@ -66,7 +66,7 @@ func main() {
 		LoopCount:       0,
 	}
 
-	f, err := os.Create("../../assets/bd_gif.gif")
+	f, err := os.Create("../assets/bd_gif.gif")
 	if err != nil {
 		panic(err)
 	}

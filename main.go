@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"image"
+	"image/gif"
 	"os"
 	"os/exec"
 	"strings"
@@ -34,6 +36,14 @@ func handleError(err error) {
 
 func turnGifToVideo(assetPath, outPath string) error {
 	return exec.Command("ffmpeg", "-i", assetPath, outPath).Run()
+}
+
+func gifGetNextIndex(frameCount, frame int) int {
+	if frame+1 >= frameCount {
+		return 0
+	}
+
+	return frame + 1
 }
 
 func main() {

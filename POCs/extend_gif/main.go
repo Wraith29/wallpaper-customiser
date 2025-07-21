@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	buf, err := os.ReadFile("../../assets/epilepsy.gif")
+	buf, err := os.ReadFile("../assets/epilepsy.gif")
 	if err != nil {
 		panic(err)
 	}

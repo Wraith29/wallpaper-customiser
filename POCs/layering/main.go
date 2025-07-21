@@ -9,12 +9,12 @@ import (
 )
 
 func main() {
-	btmBuf, err := os.ReadFile("../../assets/bottom.png")
+	btmBuf, err := os.ReadFile("../assets/bottom.png")
 	if err != nil {
 		panic(err)
 	}
 
-	topBuf, err := os.ReadFile("../../assets/top.png")
+	topBuf, err := os.ReadFile("../assets/top.png")
 	if err != nil {
 		panic(err)
 	}
@@ -34,7 +34,7 @@ func main() {
 	draw.Draw(base, base.Bounds(), btm, image.Point{0, 0}, draw.Over)
 	draw.Draw(base, base.Bounds(), top, image.Point{0, 0}, draw.Over)
 
-	f, err := os.Create("../../assets/stacked.png")
+	f, err := os.Create("../assets/stacked.png")
 	if err != nil {
 		panic(err)
 	}

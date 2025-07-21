@@ -19,7 +19,7 @@ func getNextFrameIndex(count, idx int) int {
 }
 
 func main() {
-	gifBuf, err := os.ReadFile("../../assets/rain.gif")
+	gifBuf, err := os.ReadFile("../assets/rain.gif")
 	if err != nil {
 		panic(err)
 	}
@@ -29,7 +29,7 @@ func main() {
 		panic(err)
 	}
 
-	backdropBuf, err := os.ReadFile("../../assets/rain_backdrop.gif")
+	backdropBuf, err := os.ReadFile("../assets/rain_backdrop.gif")
 	if err != nil {
 		panic(err)
 	}
@@ -83,7 +83,7 @@ func main() {
 		LoopCount:       0,
 	}
 
-	f, err := os.Create("../../assets/layered_gifs.gif")
+	f, err := os.Create("../assets/layered_gifs.gif")
 	if err != nil {
 		panic(err)
 	}
